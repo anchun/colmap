@@ -250,6 +250,8 @@ if(FETCH_LIBTORCH)
         endif()
     endif()
     find_package(Torch REQUIRED PATHS "${libtorch_SOURCE_DIR}" NO_DEFAULT_PATH)
+else()
+    find_package(Torch REQUIRED)
 endif()
 
 add_subdirectory(src/colmap)
