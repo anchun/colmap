@@ -64,7 +64,9 @@ else()
         /usr/local/include
         /sw/include
         /opt/include
-        /opt/local/include)
+        /opt/local/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/thirdparty/glew/include
+        )
     find_library(GLEW_LIBRARIES
         NAMES
         GLEW
@@ -79,7 +81,9 @@ else()
         /usr/local/lib
         /sw/lib
         /opt/lib
-        /opt/local/lib)
+        /opt/local/lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/thirdparty/glew/lib
+        )
 
     if(GLEW_INCLUDE_DIRS AND GLEW_LIBRARIES)
         set(GLEW_FOUND TRUE)
@@ -97,6 +101,10 @@ else()
         GLEW::GLEW INTERFACE ${GLEW_LIBRARIES})
 endif()
 
-if(NOT GLEW_FOUND AND GLEW_FIND_REQUIRED)
-    message(FATAL_ERROR "Could not find Glew")
+if(NOT GLEW_FOUND)
+    if(GLEW_FIND_REQUIRED)
+        message(FATAL_ERROR "Could not find Glew")
+    else()
+        message(STATUS "Could not find Glew")
+    endif()
 endif()
